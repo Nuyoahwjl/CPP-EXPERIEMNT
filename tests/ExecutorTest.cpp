@@ -50,4 +50,46 @@ namespace adas
         const Pose target = {1, 0, 'E'};
         ASSERT_EQ(executor->Query(), target);
     }
+
+    // 测试用例4, 测试Execute方法,朝向W,起点(0,0),执行M命令,期望结果为(-1,0,W)
+    TEST(ExecutorTest, should_return_x_minus_1_given_command_is_M_and_facing_is_W)
+    {
+        // given
+        std::unique_ptr<Executor> executor(Executor::NewExecutor({0, 0, 'W'}));
+
+        // when
+        executor->Execute("M");
+
+        // then
+        const Pose target = {-1, 0, 'W'};
+        ASSERT_EQ(executor->Query(), target);
+    }
+
+    // 测试用例5, 测试Execute方法,朝向N,起点(0,0),执行M命令,期望结果为(0,1,N)
+    TEST(ExecutorTest, should_return_x_plus_1_given_command_is_M_and_facing_is_N)
+    {
+        // given
+        std::unique_ptr<Executor> executor(Executor::NewExecutor({0, 0, 'N'}));
+
+        // when
+        executor->Execute("M");
+
+        // then
+        const Pose target = {0, 1, 'N'};
+        ASSERT_EQ(executor->Query(), target);
+    }
+
+    // 测试用例6, 测试Execute方法,朝向S,起点(0,0),执行M命令,期望结果为(0,-1,S)
+    TEST(ExecutorTest, should_return_x_minus_1_given_command_is_M_and_facing_is_S)
+    {
+        // given
+        std::unique_ptr<Executor> executor(Executor::NewExecutor({0, 0, 'S'}));
+
+        // when
+        executor->Execute("M");
+
+        // then
+        const Pose target = {0, -1, 'S'};
+        ASSERT_EQ(executor->Query(), target);
+    }
 }
