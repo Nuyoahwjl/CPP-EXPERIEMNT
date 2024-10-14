@@ -4,7 +4,7 @@
 namespace adas
 {
     // 并没有初始化ExecutorImpl的pose成员变量
-    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept {}
+    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept :pose(pose) {}
     // Query方法
     Pose ExecutorImpl::Query(void) const noexcept
     {
