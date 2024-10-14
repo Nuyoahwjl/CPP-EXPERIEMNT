@@ -20,14 +20,45 @@ namespace adas
     // Execute方法
     void ExecutorImpl::Execute(const std::string &command) noexcept
     {
-        for(const auto cmd : command)
+        for (const auto cmd : command)
         {
-            if(cmd=='M')
+            if (cmd == 'M')
             {
-                if(pose.heading=='E') { ++pose.x;}
-                else if(pose.heading=='W') { --pose.x;}
-                else if(pose.heading=='N') { ++pose.y;}
-                else if(pose.heading=='S') { --pose.y;}
+                if (pose.heading == 'E')
+                {
+                    ++pose.x;
+                }
+                else if (pose.heading == 'W')
+                {
+                    --pose.x;
+                }
+                else if (pose.heading == 'N')
+                {
+                    ++pose.y;
+                }
+                else if (pose.heading == 'S')
+                {
+                    --pose.y;
+                }
+            }
+            else if (cmd == 'L')
+            {
+                if (pose.heading == 'E')
+                {
+                    pose.heading = 'N';
+                }
+                else if (pose.heading == 'W')
+                {
+                    pose.heading = 'S';
+                }
+                else if (pose.heading == 'N')
+                {
+                    pose.heading = 'W';
+                }
+                else if (pose.heading == 'S')
+                {
+                    pose.heading = 'E';
+                }
             }
         }
     }
