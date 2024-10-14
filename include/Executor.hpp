@@ -33,5 +33,7 @@ namespace adas
     public:
         // 查询当前汽车姿态，纯虚函数，留给子类具体实现
         virtual Pose Query(void) const noexcept = 0;
+        // 通过命令执行驾驶动作，纯虚函数，留给子类具体实现
+        virtual void Execute(const std::string &command) noexcept = 0;
     }; // 含有纯虚函数的类称为抽象类，不能实例化，只能作为基类
 }
