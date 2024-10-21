@@ -29,12 +29,18 @@ namespace adas
     private:
         // 当前汽车姿态
         Pose pose;
+        // 是否为Fast状态
+        bool isfast{false};
         // 移动方法
         void Move(void) noexcept;
         // 左转方法
         void TurnLeft(void) noexcept;
         // 右转方法
         void TurnRight(void) noexcept;
+        // 改变Fast状态
+        void Fast(void) noexcept;
+        // 查询是否为Fast状态
+        bool isFast(void) const noexcept;
 
         // 定义一个虚基类ICommand，完成DoOperate动作
         class ICommand
@@ -49,6 +55,8 @@ namespace adas
         public:
             void DoOperate(ExecutorImpl &executor) const noexcept override
             {
+                if(executor.isFast())
+                    executor.Move();
                 executor.Move();
             }
         };
@@ -58,6 +66,8 @@ namespace adas
         public:
             void DoOperate(ExecutorImpl &executor) const noexcept override
             {
+                if (executor.isFast())
+                    executor.Move();
                 executor.TurnLeft();
             }
         };
@@ -67,6 +77,8 @@ namespace adas
         public:
             void DoOperate(ExecutorImpl &executor) const noexcept override
             {
+                if (executor.isFast())
+                    executor.Move();
                 executor.TurnRight();
             }
         };
@@ -99,5 +111,14 @@ namespace adas
         //     }
         // };
 
+        // 定义一个嵌套类FastCommand，完成Fast动作
+        class FastCommand final : public ICommand
+        {
+        public:
+            void DoOperate(ExecutorImpl &executor) const noexcept override
+            {
+                executor.Fast();
+            }
+        };
     };
 }
