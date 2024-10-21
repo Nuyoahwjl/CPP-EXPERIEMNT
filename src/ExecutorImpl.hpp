@@ -53,5 +53,14 @@ namespace adas
                 executor.TurnLeft();
             }
         };
+        // 定义一个嵌套类TurnRightCommand，完成TurnRight动作
+        class TurnRightCommand final
+        {
+        public:
+            void DoOperate(ExecutorImpl& executor) const noexcept
+            {
+                executor.TurnRight();
+            }
+        };
     };
 }
