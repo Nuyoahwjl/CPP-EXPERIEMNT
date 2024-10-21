@@ -22,23 +22,40 @@ namespace adas
     // Execute方法
     void ExecutorImpl::Execute(const std::string &command) noexcept
     {
+        // for (const auto cmd : command)
+        // {
+        //     if (cmd == 'M')
+        //     {
+        //         // Move();
+        //         std::unique_ptr<MoveCommand> cmder=std::make_unique<MoveCommand>();
+        //         cmder->DoOperate(*this);
+        //     }
+        //     else if (cmd == 'L')
+        //     {
+        //         // TurnLeft();
+        //         std::unique_ptr<TurnLeftCommand> cmder=std::make_unique<TurnLeftCommand>();
+        //         cmder->DoOperate(*this);
+        //     }
+        //     else if (cmd == 'R')
+        //     {
+        //         // TurnRight();
+        //         std::unique_ptr<TurnRightCommand> cmder=std::make_unique<TurnRightCommand>();
+        //         cmder->DoOperate(*this);
+        //     }
+        // }
         for (const auto cmd : command)
         {
+            std::unique_ptr<ICommand> cmder;
+            
             if (cmd == 'M')
-            {
-                std::unique_ptr<MoveCommand> cmder=std::make_unique<MoveCommand>();
-                cmder->DoOperate(*this);
-            }
+                cmder = std::make_unique<MoveCommand>();
             else if (cmd == 'L')
-            {
-                std::unique_ptr<TurnLeftCommand> cmder=std::make_unique<TurnLeftCommand>();
-                cmder->DoOperate(*this);
-            }
+                cmder = std::make_unique<TurnLeftCommand>();
             else if (cmd == 'R')
-            {
-                std::unique_ptr<TurnRightCommand> cmder=std::make_unique<TurnRightCommand>();
+                cmder = std::make_unique<TurnRightCommand>();
+            
+            if(cmder)
                 cmder->DoOperate(*this);
-            }
         }
     }
 

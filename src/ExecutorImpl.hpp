@@ -29,38 +29,75 @@ namespace adas
     private:
         // 当前汽车姿态
         Pose pose;
-        // 移动
+        // 移动方法
         void Move(void) noexcept;
-        // 左转
+        // 左转方法
         void TurnLeft(void) noexcept;
-        // 右转
+        // 右转方法
         void TurnRight(void) noexcept;
-        // 定义一个嵌套类MoveCommand，完成Move动作
-        class MoveCommand final
+
+        // 定义一个虚基类ICommand，完成DoOperate动作
+        class ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept
+            virtual void DoOperate(ExecutorImpl &executor) const noexcept = 0;
+            virtual ~ICommand() noexcept = default;
+        };
+        // 定义一个嵌套类MoveCommand，完成Move动作
+        class MoveCommand final : public ICommand
+        {
+        public:
+            void DoOperate(ExecutorImpl &executor) const noexcept override
             {
                 executor.Move();
             }
         };
         // 定义一个嵌套类TurnLeftCommand，完成TurnLeft动作
-        class TurnLeftCommand final
+        class TurnLeftCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept
+            void DoOperate(ExecutorImpl &executor) const noexcept override
             {
                 executor.TurnLeft();
             }
         };
         // 定义一个嵌套类TurnRightCommand，完成TurnRight动作
-        class TurnRightCommand final
+        class TurnRightCommand final : public ICommand
         {
         public:
-            void DoOperate(ExecutorImpl& executor) const noexcept
+            void DoOperate(ExecutorImpl &executor) const noexcept override
             {
                 executor.TurnRight();
             }
         };
+
+        // // 定义一个嵌套类MoveCommand，完成Move动作
+        // class MoveCommand final
+        // {
+        // public:
+        //     void DoOperate(ExecutorImpl& executor) const noexcept
+        //     {
+        //         executor.Move();
+        //     }
+        // };
+        // // 定义一个嵌套类TurnLeftCommand，完成TurnLeft动作
+        // class TurnLeftCommand final
+        // {
+        // public:
+        //     void DoOperate(ExecutorImpl& executor) const noexcept
+        //     {
+        //         executor.TurnLeft();
+        //     }
+        // };
+        // // 定义一个嵌套类TurnRightCommand，完成TurnRight动作
+        // class TurnRightCommand final
+        // {
+        // public:
+        //     void DoOperate(ExecutorImpl& executor) const noexcept
+        //     {
+        //         executor.TurnRight();
+        //     }
+        // };
+
     };
 }
