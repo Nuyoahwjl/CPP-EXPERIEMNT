@@ -25,10 +25,7 @@ namespace adas
         {
             if (cmd == 'M')
             {
-                if (pose.heading == 'E') { ++pose.x; }
-                else if (pose.heading == 'W') { --pose.x; }
-                else if (pose.heading == 'N') { ++pose.y; }
-                else if (pose.heading == 'S') { --pose.y; }
+                Move();
             }
             else if (cmd == 'L')
             {
@@ -45,5 +42,14 @@ namespace adas
                 else if (pose.heading == 'S') { pose.heading = 'W'; }
             }
         }
+    }
+
+    // Move方法
+    void ExecutorImpl::Move(void) noexcept
+    {
+        if (pose.heading == 'E') { pose.x += 1; }
+        else if (pose.heading == 'W') { pose.x -= 1; }
+        else if (pose.heading == 'N') { pose.y += 1; }
+        else if (pose.heading == 'S') { pose.y -= 1; }
     }
 }
