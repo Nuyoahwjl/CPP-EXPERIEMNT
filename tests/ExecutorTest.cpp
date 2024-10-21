@@ -1,15 +1,16 @@
 #include <gtest/gtest.h>
 #include <memory>
-#include <tuple>
+// #include <tuple>
 #include "Executor.hpp"
+#include "PoseEq.hpp"
 
 namespace adas
 {
     // 重载Pose的==
-    bool operator==(const Pose &lhs, const Pose &rhs)
-    {
-        return std::tie(lhs.x, lhs.y, lhs.heading) == std::tie(rhs.x, rhs.y, rhs.heading);
-    }
+    // bool operator==(const Pose &lhs, const Pose &rhs)
+    // {
+    //     return std::tie(lhs.x, lhs.y, lhs.heading) == std::tie(rhs.x, rhs.y, rhs.heading);
+    // }
 
     // 测试用例1
     TEST(ExecutorTest, should_return_init_pose_when_without_command)
