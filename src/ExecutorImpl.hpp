@@ -31,5 +31,7 @@ namespace adas
         Pose pose;
         // 移动
         void Move(void) noexcept;
+        // 左转
+        void TurnLeft(void) noexcept;
     };
 }
