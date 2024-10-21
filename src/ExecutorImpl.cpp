@@ -1,5 +1,6 @@
 #include "ExecutorImpl.hpp"
 #include <new>
+#include <memory>
 
 namespace adas
 {
@@ -25,7 +26,8 @@ namespace adas
         {
             if (cmd == 'M')
             {
-                Move();
+                std::unique_ptr<MoveCommand> cmder=std::make_unique<MoveCommand>();
+                cmder->DoOperate(*this);
             }
             else if (cmd == 'L')
             {

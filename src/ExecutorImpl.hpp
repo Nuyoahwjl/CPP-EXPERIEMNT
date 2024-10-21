@@ -35,5 +35,14 @@ namespace adas
         void TurnLeft(void) noexcept;
         // 右转
         void TurnRight(void) noexcept;
+        // 定义一个嵌套类MoveCommand，完成Move动作
+        class MoveCommand final
+        {
+        public:
+            void DoOperate(ExecutorImpl& executor) const noexcept
+            {
+                executor.Move();
+            }
+        };
     };
 }
