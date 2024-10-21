@@ -33,10 +33,7 @@ namespace adas
             }
             else if (cmd == 'R')
             {
-                if (pose.heading == 'E') { pose.heading = 'S'; }
-                else if (pose.heading == 'W') { pose.heading = 'N'; }
-                else if (pose.heading == 'N') { pose.heading = 'E'; }
-                else if (pose.heading == 'S') { pose.heading = 'W'; }
+                TurnRight();
             }
         }
     }
@@ -57,5 +54,14 @@ namespace adas
         else if (pose.heading == 'W') { pose.heading = 'S'; }
         else if (pose.heading == 'N') { pose.heading = 'W'; }
         else if (pose.heading == 'S') { pose.heading = 'E'; }
+    }
+
+    // TurnRight方法
+    void ExecutorImpl::TurnRight(void) noexcept
+    {
+        if (pose.heading == 'E') { pose.heading = 'S'; }
+        else if (pose.heading == 'W') { pose.heading = 'N'; }
+        else if (pose.heading == 'N') { pose.heading = 'E'; }
+        else if (pose.heading == 'S') { pose.heading = 'W'; }
     }
 }

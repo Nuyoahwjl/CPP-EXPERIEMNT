@@ -33,5 +33,7 @@ namespace adas
         void Move(void) noexcept;
         // 左转
         void TurnLeft(void) noexcept;
+        // 右转
+        void TurnRight(void) noexcept;
     };
 }
