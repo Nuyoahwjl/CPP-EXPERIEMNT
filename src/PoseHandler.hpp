@@ -1,5 +1,6 @@
 #pragma once
 #include "Executor.hpp"
+#include "Direction.hpp"
 
 namespace adas
 {
@@ -19,7 +20,9 @@ namespace adas
             Pose Query(void) const noexcept; // 查询当前汽车姿态
 
         private:
-            Pose pose; // 当前汽车姿态
+            // Pose pose; // 当前汽车姿态
+            Point point; // 当前坐标
+            const Direction* facing; // 当前方向
             bool isfast{false}; // 是否为快速模式
     };
 }
