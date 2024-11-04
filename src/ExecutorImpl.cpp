@@ -25,12 +25,23 @@ namespace adas
     void ExecutorImpl::Execute(const std::string &command) noexcept
     {
         // 表驱动
-        std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
+        // std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
+        std::unordered_map<char, std::function<void(PoseHandler& PoseHandler)>> cmderMap;
+
         // 建立操作与命令的映射
-        cmderMap.emplace('M', std::make_unique<MoveCommand>());
-        cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
-        cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
-        cmderMap.emplace('F', std::make_unique<FastCommand>());
+        // cmderMap.emplace('M', std::make_unique<MoveCommand>());
+        // cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
+        // cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
+        // cmderMap.emplace('F', std::make_unique<FastCommand>());
+        MoveCommand moveCommand;
+        cmderMap.emplace('M', moveCommand.operate);
+        TurnLeftCommand turnLeftCommand;
+        cmderMap.emplace('L', turnLeftCommand.operate);
+        TurnRightCommand turnRightCommand;
+        cmderMap.emplace('R', turnRightCommand.operate);
+        FastCommand fastCommand;
+        cmderMap.emplace('F', fastCommand.operate);
+
         // 执行命令
         for (const auto cmd : command)
         {
@@ -38,7 +49,8 @@ namespace adas
             const auto it = cmderMap.find(cmd);
             // 如果找到表驱动，执行对应操作
             if (it != cmderMap.end())
-                it->second->DoOperate(poseHandler);
+                it->second(poseHandler);
+                // it->second->DoOperate(poseHandler);
                 // cmderMap[cmd]->DoOperate(poseHandler);
         }
     }
