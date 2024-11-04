@@ -26,13 +26,20 @@ namespace adas
     {
         // 表驱动
         // std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
-        std::unordered_map<char, std::function<void(PoseHandler& PoseHandler)>> cmderMap;
+        // std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap;
+        std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap {
+            {'M', MoveCommand()},
+            {'L', TurnLeftCommand()},
+            {'R', TurnRightCommand()},
+            {'F', FastCommand()}
+        };
 
         // 建立操作与命令的映射
         // cmderMap.emplace('M', std::make_unique<MoveCommand>());
         // cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
         // cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
         // cmderMap.emplace('F', std::make_unique<FastCommand>());
+
         // MoveCommand moveCommand;
         // cmderMap.emplace('M', moveCommand.operate);
         // TurnLeftCommand turnLeftCommand;
@@ -41,10 +48,11 @@ namespace adas
         // cmderMap.emplace('R', turnRightCommand.operate);
         // FastCommand fastCommand;
         // cmderMap.emplace('F', fastCommand.operate);
-        cmderMap.emplace('M', MoveCommand());
-        cmderMap.emplace('L', TurnLeftCommand());
-        cmderMap.emplace('R', TurnRightCommand());
-        cmderMap.emplace('F', FastCommand());
+        
+        // cmderMap.emplace('M', MoveCommand());
+        // cmderMap.emplace('L', TurnLeftCommand());
+        // cmderMap.emplace('R', TurnRightCommand());
+        // cmderMap.emplace('F', FastCommand());
 
         // 执行命令
         for (const auto cmd : command)
