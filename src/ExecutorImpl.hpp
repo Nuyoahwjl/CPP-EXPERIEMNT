@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Executor.hpp"
+#include "PoseHandler.hpp"
 #include <string>
 
 namespace adas
@@ -25,25 +26,26 @@ namespace adas
         Pose Query(void) const noexcept override;
         // 通过命令执行驾驶动作,是父类抽象方法Execute的具体实现
         void Execute(const std::string &command) noexcept override;
+        
+    // private:
+    //     // 当前汽车姿态
+    //     Pose pose;
+    //     // 是否为Fast状态
+    //     bool isfast{false};
+    // public:
+    //     // 移动方法
+    //     void Move(void) noexcept;
+    //     // 左转方法
+    //     void TurnLeft(void) noexcept;
+    //     // 右转方法
+    //     void TurnRight(void) noexcept;
+    //     // 改变Fast状态
+    //     void Fast(void) noexcept;
+    //     // 查询是否为Fast状态
+    //     bool isFast(void) const noexcept;
 
     private:
-        // 当前汽车姿态
-        Pose pose;
-        // 是否为Fast状态
-        bool isfast{false};
-    
-    public:
-        // 移动方法
-        void Move(void) noexcept;
-        // 左转方法
-        void TurnLeft(void) noexcept;
-        // 右转方法
-        void TurnRight(void) noexcept;
-        // 改变Fast状态
-        void Fast(void) noexcept;
-        // 查询是否为Fast状态
-        bool isFast(void) const noexcept;
-
+        PoseHandler poseHandler; // 状态管理类
 
     };
 }

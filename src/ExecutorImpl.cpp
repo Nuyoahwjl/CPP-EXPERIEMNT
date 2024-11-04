@@ -6,12 +6,12 @@
 namespace adas
 {
     // 初始化ExecutorImpl的pose成员变量
-    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept : pose(pose) {}
+    ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept : poseHandler(pose) {}
 
     // Query方法
     Pose ExecutorImpl::Query(void) const noexcept
     {
-        return pose;
+        return poseHandler.Query();
     }
 
     // NewExecutor方法
@@ -58,46 +58,43 @@ namespace adas
                 cmder = std::make_unique<FastCommand>();
 
             if(cmder)
-                cmder->DoOperate(*this);
+                cmder->DoOperate(poseHandler);
         }
     }
 
-    // Move方法
-    void ExecutorImpl::Move(void) noexcept
-    {
-        if (pose.heading == 'E') { pose.x += 1; }
-        else if (pose.heading == 'W') { pose.x -= 1; }
-        else if (pose.heading == 'N') { pose.y += 1; }
-        else if (pose.heading == 'S') { pose.y -= 1; }
-    }
-
-    // TurnLeft方法
-    void ExecutorImpl::TurnLeft(void) noexcept
-    {
-        if (pose.heading == 'E') { pose.heading = 'N'; }
-        else if (pose.heading == 'W') { pose.heading = 'S'; }
-        else if (pose.heading == 'N') { pose.heading = 'W'; }
-        else if (pose.heading == 'S') { pose.heading = 'E'; }
-    }
-
-    // TurnRight方法
-    void ExecutorImpl::TurnRight(void) noexcept
-    {
-        if (pose.heading == 'E') { pose.heading = 'S'; }
-        else if (pose.heading == 'W') { pose.heading = 'N'; }
-        else if (pose.heading == 'N') { pose.heading = 'E'; }
-        else if (pose.heading == 'S') { pose.heading = 'W'; }
-    }
-
-    // Fast方法
-    void ExecutorImpl::Fast(void) noexcept
-    {
-        isfast = !isfast;
-    }
-
-    // isFast方法
-    bool ExecutorImpl::isFast(void) const noexcept
-    {
-        return isfast;
-    }
+    // // Move方法
+    // void ExecutorImpl::Move(void) noexcept
+    // {
+    //     if (pose.heading == 'E') { pose.x += 1; }
+    //     else if (pose.heading == 'W') { pose.x -= 1; }
+    //     else if (pose.heading == 'N') { pose.y += 1; }
+    //     else if (pose.heading == 'S') { pose.y -= 1; }
+    // }
+    // // TurnLeft方法
+    // void ExecutorImpl::TurnLeft(void) noexcept
+    // {
+    //     if (pose.heading == 'E') { pose.heading = 'N'; }
+    //     else if (pose.heading == 'W') { pose.heading = 'S'; }
+    //     else if (pose.heading == 'N') { pose.heading = 'W'; }
+    //     else if (pose.heading == 'S') { pose.heading = 'E'; }
+    // }
+    // // TurnRight方法
+    // void ExecutorImpl::TurnRight(void) noexcept
+    // {
+    //     if (pose.heading == 'E') { pose.heading = 'S'; }
+    //     else if (pose.heading == 'W') { pose.heading = 'N'; }
+    //     else if (pose.heading == 'N') { pose.heading = 'E'; }
+    //     else if (pose.heading == 'S') { pose.heading = 'W'; }
+    // }
+    // // Fast方法
+    // void ExecutorImpl::Fast(void) noexcept
+    // {
+    //     isfast = !isfast;
+    // }
+    // // isFast方法
+    // bool ExecutorImpl::isFast(void) const noexcept
+    // {
+    //     return isfast;
+    // }
+    
 }
