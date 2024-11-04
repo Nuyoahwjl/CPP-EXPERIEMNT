@@ -66,9 +66,17 @@ namespace adas
         // };
         void operator()(PoseHandler &poseHandler) const noexcept
         {
-            if (poseHandler.isFast())
-                poseHandler.Move();
-            poseHandler.Move();
+            if(poseHandler.isFast())
+            {
+                if(poseHandler.isReverse())
+                    poseHandler.Backward();
+                else
+                    poseHandler.Forward();
+            }
+            if(poseHandler.isReverse())
+                poseHandler.Backward();
+            else
+                poseHandler.Forward();
         }
     };
     class TurnLeftCommand final
@@ -84,8 +92,16 @@ namespace adas
         void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.isFast())
-                poseHandler.Move();
-            poseHandler.TurnLeft();
+            {
+                if(poseHandler.isReverse())
+                    poseHandler.Backward();
+                else
+                    poseHandler.Forward();
+            }
+            if(poseHandler.isReverse())
+                poseHandler.TurnRight();
+            else
+                poseHandler.TurnLeft();
         }
     };
     class TurnRightCommand final
@@ -101,8 +117,16 @@ namespace adas
         void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.isFast())
-                poseHandler.Move();
-            poseHandler.TurnRight();
+            {
+                if(poseHandler.isReverse())
+                    poseHandler.Backward();
+                else
+                    poseHandler.Forward();
+            }
+            if(poseHandler.isReverse())
+                poseHandler.TurnLeft();
+            else
+                poseHandler.TurnRight();
         }
     };
     class FastCommand final
@@ -116,6 +140,14 @@ namespace adas
         void operator()(PoseHandler &poseHandler) const noexcept
         {
             poseHandler.Fast();
+        }
+    };
+    class ReverseCommand final
+    {
+    public:
+        void operator()(PoseHandler &poseHandler) const noexcept
+        {
+            poseHandler.Reverse();
         }
     };
 

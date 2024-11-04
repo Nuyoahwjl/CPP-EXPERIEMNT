@@ -23,6 +23,13 @@ namespace adas
         return *this;
     }
 
+    Point &Point::operator-=(const Point &rhs) noexcept
+    {
+        x -= rhs.x;
+        y -= rhs.y;
+        return *this;
+    }
+
     int Point::GetX(void) const noexcept
     {
         return x;

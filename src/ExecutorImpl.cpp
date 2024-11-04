@@ -31,7 +31,8 @@ namespace adas
             {'M', MoveCommand()},
             {'L', TurnLeftCommand()},
             {'R', TurnRightCommand()},
-            {'F', FastCommand()}
+            {'F', FastCommand()},
+            {'B', ReverseCommand()}
         };
 
         // 建立操作与命令的映射
@@ -48,7 +49,7 @@ namespace adas
         // cmderMap.emplace('R', turnRightCommand.operate);
         // FastCommand fastCommand;
         // cmderMap.emplace('F', fastCommand.operate);
-        
+
         // cmderMap.emplace('M', MoveCommand());
         // cmderMap.emplace('L', TurnLeftCommand());
         // cmderMap.emplace('R', TurnRightCommand());
