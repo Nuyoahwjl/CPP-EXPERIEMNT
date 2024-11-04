@@ -33,14 +33,18 @@ namespace adas
         // cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
         // cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
         // cmderMap.emplace('F', std::make_unique<FastCommand>());
-        MoveCommand moveCommand;
-        cmderMap.emplace('M', moveCommand.operate);
-        TurnLeftCommand turnLeftCommand;
-        cmderMap.emplace('L', turnLeftCommand.operate);
-        TurnRightCommand turnRightCommand;
-        cmderMap.emplace('R', turnRightCommand.operate);
-        FastCommand fastCommand;
-        cmderMap.emplace('F', fastCommand.operate);
+        // MoveCommand moveCommand;
+        // cmderMap.emplace('M', moveCommand.operate);
+        // TurnLeftCommand turnLeftCommand;
+        // cmderMap.emplace('L', turnLeftCommand.operate);
+        // TurnRightCommand turnRightCommand;
+        // cmderMap.emplace('R', turnRightCommand.operate);
+        // FastCommand fastCommand;
+        // cmderMap.emplace('F', fastCommand.operate);
+        cmderMap.emplace('M', MoveCommand());
+        cmderMap.emplace('L', TurnLeftCommand());
+        cmderMap.emplace('R', TurnRightCommand());
+        cmderMap.emplace('F', FastCommand());
 
         // 执行命令
         for (const auto cmd : command)

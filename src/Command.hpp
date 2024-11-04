@@ -57,44 +57,66 @@ namespace adas
     class MoveCommand final
     {
     public:
-        // 定义函数对象operate，接受参数PoseHandler，返回void
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // // 定义函数对象operate，接受参数PoseHandler，返回void
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     if (poseHandler.isFast())
+        //         poseHandler.Move();
+        //     poseHandler.Move();
+        // };
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.isFast())
                 poseHandler.Move();
             poseHandler.Move();
-        };
+        }
     };
     class TurnLeftCommand final
     {
     public:
-        // 定义函数对象operate，接受参数PoseHandler，返回void
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // // 定义函数对象operate，接受参数PoseHandler，返回void
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     if (poseHandler.isFast())
+        //         poseHandler.Move();
+        //     poseHandler.TurnLeft();
+        // };
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.isFast())
                 poseHandler.Move();
             poseHandler.TurnLeft();
-        };
+        }
     };
     class TurnRightCommand final
     {
     public:
-        // 定义函数对象operate，接受参数PoseHandler，返回void
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // // 定义函数对象operate，接受参数PoseHandler，返回void
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     if (poseHandler.isFast())
+        //         poseHandler.Move();
+        //     poseHandler.TurnRight();
+        // };
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             if (poseHandler.isFast())
                 poseHandler.Move();
             poseHandler.TurnRight();
-        };
+        }
     };
     class FastCommand final
     {
     public:
-        // 定义函数对象operate，接受参数PoseHandler，返回void
-        const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // // 定义函数对象operate，接受参数PoseHandler，返回void
+        // const std::function<void(PoseHandler &PoseHandler)> operate = [](PoseHandler &poseHandler) noexcept
+        // {
+        //     poseHandler.Fast();
+        // };
+        void operator()(PoseHandler &poseHandler) const noexcept
         {
             poseHandler.Fast();
-        };
+        }
     };
-    
+
 }
