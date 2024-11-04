@@ -1,10 +1,11 @@
 #include "ExecutorImpl.hpp"
 #include <new>
 #include <memory>
+#include "Command.hpp"
 
 namespace adas
 {
-    // 并没有初始化ExecutorImpl的pose成员变量
+    // 初始化ExecutorImpl的pose成员变量
     ExecutorImpl::ExecutorImpl(const Pose &pose) noexcept : pose(pose) {}
 
     // Query方法
