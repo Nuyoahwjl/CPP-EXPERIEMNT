@@ -2,6 +2,7 @@
 #include <new>
 #include <memory>
 #include "Command.hpp"
+#include <unordered_map>
 
 namespace adas
 {
@@ -23,44 +24,64 @@ namespace adas
     // Execute方法
     void ExecutorImpl::Execute(const std::string &command) noexcept
     {
-        // for (const auto cmd : command)
-        // {
-        //     if (cmd == 'M')
-        //     {
-        //         // Move();
-        //         std::unique_ptr<MoveCommand> cmder=std::make_unique<MoveCommand>();
-        //         cmder->DoOperate(*this);
-        //     }
-        //     else if (cmd == 'L')
-        //     {
-        //         // TurnLeft();
-        //         std::unique_ptr<TurnLeftCommand> cmder=std::make_unique<TurnLeftCommand>();
-        //         cmder->DoOperate(*this);
-        //     }
-        //     else if (cmd == 'R')
-        //     {
-        //         // TurnRight();
-        //         std::unique_ptr<TurnRightCommand> cmder=std::make_unique<TurnRightCommand>();
-        //         cmder->DoOperate(*this);
-        //     }
-        // }
+        // 表驱动
+        std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
+        // 建立操作与命令的映射
+        cmderMap.emplace('M', std::make_unique<MoveCommand>());
+        cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
+        cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
+        cmderMap.emplace('F', std::make_unique<FastCommand>());
+        // 执行命令
         for (const auto cmd : command)
         {
-            std::unique_ptr<ICommand> cmder;
-            
-            if (cmd == 'M')
-                cmder = std::make_unique<MoveCommand>();
-            else if (cmd == 'L')
-                cmder = std::make_unique<TurnLeftCommand>();
-            else if (cmd == 'R')
-                cmder = std::make_unique<TurnRightCommand>();
-            else if (cmd == 'F')
-                cmder = std::make_unique<FastCommand>();
-
-            if(cmder)
-                cmder->DoOperate(poseHandler);
+            // 根据操作查找表驱动
+            const auto it = cmderMap.find(cmd);
+            // 如果找到表驱动，执行对应操作
+            if (it != cmderMap.end())
+                it->second->DoOperate(poseHandler);
+                // cmderMap[cmd]->DoOperate(poseHandler);
         }
     }
+
+    // // Execute方法
+    // void ExecutorImpl::Execute(const std::string &command) noexcept
+    // {
+    //     // for (const auto cmd : command)
+    //     // {
+    //     //     if (cmd == 'M')
+    //     //     {
+    //     //         // Move();
+    //     //         std::unique_ptr<MoveCommand> cmder=std::make_unique<MoveCommand>();
+    //     //         cmder->DoOperate(*this);
+    //     //     }
+    //     //     else if (cmd == 'L')
+    //     //     {
+    //     //         // TurnLeft();
+    //     //         std::unique_ptr<TurnLeftCommand> cmder=std::make_unique<TurnLeftCommand>();
+    //     //         cmder->DoOperate(*this);
+    //     //     }
+    //     //     else if (cmd == 'R')
+    //     //     {
+    //     //         // TurnRight();
+    //     //         std::unique_ptr<TurnRightCommand> cmder=std::make_unique<TurnRightCommand>();
+    //     //         cmder->DoOperate(*this);
+    //     //     }
+    //     // }
+    //     for (const auto cmd : command)
+    //     {
+    //         std::unique_ptr<ICommand> cmder;          
+    //         if (cmd == 'M')
+    //             cmder = std::make_unique<MoveCommand>();
+    //         else if (cmd == 'L')
+    //             cmder = std::make_unique<TurnLeftCommand>();
+    //         else if (cmd == 'R')
+    //             cmder = std::make_unique<TurnRightCommand>();
+    //         else if (cmd == 'F')
+    //             cmder = std::make_unique<FastCommand>();
+    //         if(cmder)
+    //             cmder->DoOperate(poseHandler);
+    //     }
+    // }
 
     // // Move方法
     // void ExecutorImpl::Move(void) noexcept
@@ -96,5 +117,5 @@ namespace adas
     // {
     //     return isfast;
     // }
-    
+
 }
