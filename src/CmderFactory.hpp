@@ -32,12 +32,17 @@ namespace adas
         //     {'F', FastCommand()},
         //     {'B', ReverseCommand()}
         // };
+
+        std::string ParseCommandString(std::string_view command) const noexcept;
+        void ReplaceAll(std::string &inout,std::string_view what, std::string_view with) const noexcept;
+
         const std::unordered_map<char, Cmder> cmderMap {
             {'M', MoveCommand()},
             {'L', TurnLeftCommand()},
             {'R', TurnRightCommand()},
             {'F', FastCommand()},
-            {'B', ReverseCommand()}
+            {'B', ReverseCommand()},
+            {'Z', TurnRoundCommand()}
         };
     };
 }
