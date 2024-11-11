@@ -1,8 +1,11 @@
 #include "ExecutorImpl.hpp"
-#include <new>
-#include <memory>
-#include "Command.hpp"
-#include <unordered_map>
+// #include <new>
+// #include <memory>
+// #include "Command.hpp"
+// #include <unordered_map>
+#include "CmderFactory.hpp"
+#include "Singleton.hpp"
+#include <algorithm>
 
 namespace adas
 {
@@ -24,48 +27,64 @@ namespace adas
     // Execute方法
     void ExecutorImpl::Execute(const std::string &command) noexcept
     {
-        // 表驱动
-        // std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
-        // std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap;
-        std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap {
-            {'M', MoveCommand()},
-            {'L', TurnLeftCommand()},
-            {'R', TurnRightCommand()},
-            {'F', FastCommand()},
-            {'B', ReverseCommand()}
-        };
-
-        // 建立操作与命令的映射
-        // cmderMap.emplace('M', std::make_unique<MoveCommand>());
-        // cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
-        // cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
-        // cmderMap.emplace('F', std::make_unique<FastCommand>());
-
-        // MoveCommand moveCommand;
-        // cmderMap.emplace('M', moveCommand.operate);
-        // TurnLeftCommand turnLeftCommand;
-        // cmderMap.emplace('L', turnLeftCommand.operate);
-        // TurnRightCommand turnRightCommand;
-        // cmderMap.emplace('R', turnRightCommand.operate);
-        // FastCommand fastCommand;
-        // cmderMap.emplace('F', fastCommand.operate);
-
-        // cmderMap.emplace('M', MoveCommand());
-        // cmderMap.emplace('L', TurnLeftCommand());
-        // cmderMap.emplace('R', TurnRightCommand());
-        // cmderMap.emplace('F', FastCommand());
-
-        // 执行命令
-        for (const auto cmd : command)
-        {
-            // 根据操作查找表驱动
-            const auto it = cmderMap.find(cmd);
-            // 如果找到表驱动，执行对应操作
-            if (it != cmderMap.end())
-                it->second(poseHandler);
-                // it->second->DoOperate(poseHandler);
-                // cmderMap[cmd]->DoOperate(poseHandler);
-        }
+        // // 表驱动
+        // // std::unordered_map<char, std::unique_ptr<ICommand>> cmderMap;
+        // // std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap;
+        // std::unordered_map<char, std::function<void(PoseHandler & PoseHandler)>> cmderMap {
+        //     {'M', MoveCommand()},
+        //     {'L', TurnLeftCommand()},
+        //     {'R', TurnRightCommand()},
+        //     {'F', FastCommand()},
+        //     {'B', ReverseCommand()}
+        // };
+        //
+        // // 建立操作与命令的映射
+        // // cmderMap.emplace('M', std::make_unique<MoveCommand>());
+        // // cmderMap.emplace('L', std::make_unique<TurnLeftCommand>());
+        // // cmderMap.emplace('R', std::make_unique<TurnRightCommand>());
+        // // cmderMap.emplace('F', std::make_unique<FastCommand>());
+        //
+        // // MoveCommand moveCommand;
+        // // cmderMap.emplace('M', moveCommand.operate);
+        // // TurnLeftCommand turnLeftCommand;
+        // // cmderMap.emplace('L', turnLeftCommand.operate);
+        // // TurnRightCommand turnRightCommand;
+        // // cmderMap.emplace('R', turnRightCommand.operate);
+        // // FastCommand fastCommand;
+        // // cmderMap.emplace('F', fastCommand.operate);
+        //
+        // // cmderMap.emplace('M', MoveCommand());
+        // // cmderMap.emplace('L', TurnLeftCommand());
+        // // cmderMap.emplace('R', TurnRightCommand());
+        // // cmderMap.emplace('F', FastCommand());
+        //
+        // // 执行命令
+        // for (const auto cmd : command)
+        // {
+        //     // 根据操作查找表驱动
+        //     const auto it = cmderMap.find(cmd);
+        //     // 如果找到表驱动，执行对应操作
+        //     if (it != cmderMap.end())
+        //         it->second(poseHandler);
+        //         // it->second->DoOperate(poseHandler);
+        //         // cmderMap[cmd]->DoOperate(poseHandler);
+        // }
+        const auto cmders = Singleton<CmderFactory>::Instance().GetCmders(command);
+        // std::for_each(
+        //     cmders.begin(),
+        //     cmders.end(),
+        //     [this](const std::function<void(PoseHandler & poseHandler)> &cmder) noexcept
+        //     {
+        //         cmder(poseHandler);
+        //     });
+        std::for_each(
+            cmders.begin(),
+            cmders.end(),
+            [this](const Cmder &cmder) noexcept
+            {
+                cmder(poseHandler);
+            }
+        );
     }
 
     // // Execute方法
@@ -94,7 +113,7 @@ namespace adas
     //     // }
     //     for (const auto cmd : command)
     //     {
-    //         std::unique_ptr<ICommand> cmder;          
+    //         std::unique_ptr<ICommand> cmder;
     //         if (cmd == 'M')
     //             cmder = std::make_unique<MoveCommand>();
     //         else if (cmd == 'L')
