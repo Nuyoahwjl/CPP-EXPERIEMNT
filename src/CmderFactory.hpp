@@ -7,7 +7,8 @@
 
 namespace adas
 {
-    using Cmder = std::function<void(PoseHandler &poseHandler)>;
+    // using Cmder = std::function<void(PoseHandler &poseHandler)>;
+    using Cmder = std::function<ActionGroup(PoseHandler &poseHandler)>;
     using CmderList = std::list<Cmder>;
 
     class CmderFactory final
@@ -31,11 +32,12 @@ namespace adas
         //     {'F', FastCommand()},
         //     {'B', ReverseCommand()}
         // };
-        const std::unordered_map<char, Cmder> cmderMap{
+        const std::unordered_map<char, Cmder> cmderMap {
             {'M', MoveCommand()},
             {'L', TurnLeftCommand()},
             {'R', TurnRightCommand()},
             {'F', FastCommand()},
-            {'B', ReverseCommand()}};
+            {'B', ReverseCommand()}
+        };
     };
 }

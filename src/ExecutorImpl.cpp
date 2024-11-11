@@ -82,7 +82,8 @@ namespace adas
             cmders.end(),
             [this](const Cmder &cmder) noexcept
             {
-                cmder(poseHandler);
+                // cmder(poseHandler);
+                cmder(poseHandler).DoOperate(poseHandler);
             }
         );
     }
