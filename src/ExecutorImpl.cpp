@@ -19,7 +19,7 @@ namespace adas
     }
 
     // NewExecutor方法
-    Executor *Executor::NewExecutor(const Pose &pose) noexcept
+    Executor *Executor::NewExecutor(const Pose &pose, const ExecutorType executorType) noexcept
     {
         return new (std::nothrow) ExecutorImpl(pose); // c++17
     }

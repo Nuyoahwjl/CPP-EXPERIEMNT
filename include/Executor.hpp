@@ -2,6 +2,14 @@
 #include <string>
 namespace adas
 {
+    /* 车辆枚举类型 */
+    enum class ExecutorType
+    {
+        NORMAL, 
+        SPORTS_CAR,
+        BUS,
+    };
+    
     /* 汽车姿态 */
     struct Pose
     {
@@ -17,7 +25,9 @@ namespace adas
     {
     public:
         // Caller should delete *executor when it is no longer needed.
-        static Executor *NewExecutor(const Pose &pose = {0, 0, 'N'}) noexcept;
+        // static Executor *NewExecutor(const Pose &pose = {0, 0, 'N'}) noexcept;
+        static Executor *NewExecutor(const Pose &pose = {0, 0, 'N'},
+            const ExecutorType executorType = ExecutorType::NORMAL) noexcept;
 
     public:
         // 默认构造函数
