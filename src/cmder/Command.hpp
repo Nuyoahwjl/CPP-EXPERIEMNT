@@ -1,7 +1,8 @@
 #pragma once
 #include "../src/core/PoseHandler.hpp"
 #include <functional>
-#include "ActionGroup.hpp"
+// #include "ActionGroup.hpp"
+#include "CmderOrchestrator.hpp"
 
 namespace adas
 {
@@ -81,16 +82,21 @@ namespace adas
         //         poseHandler.Forward();
         // }
 
-        ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // {
+        //     ActionGroup actionGroup;
+        //     const auto action = poseHandler.isReverse() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
+        //     if (poseHandler.isFast())
+        //     {
+        //         actionGroup.PushAction(action);
+        //     }
+        //     actionGroup.PushAction(action);
+        //     return actionGroup;
+        // }
+
+        ActionGroup operator()(const PoseHandler &poseHandler,const CmderOrchestrator &orchestrator) const noexcept
         {
-            ActionGroup actionGroup;
-            const auto action = poseHandler.isReverse() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
-            if (poseHandler.isFast())
-            {
-                actionGroup.PushAction(action);
-            }
-            actionGroup.PushAction(action);
-            return actionGroup;
+            return orchestrator.Move(poseHandler);
         }
     };
 
@@ -120,17 +126,22 @@ namespace adas
         //         poseHandler.TurnLeft();
         // }
 
-        ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // {
+        //     ActionGroup actionGroup;
+        //     const auto action = poseHandler.isReverse() ? ActionType::REVERSE_TURNLEFT_ACTION : ActionType::TURNLEFT_ACTION;
+        //     if (poseHandler.isFast())
+        //     {
+        //         const auto action_ = poseHandler.isReverse() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
+        //         actionGroup.PushAction(action_);
+        //     }
+        //     actionGroup.PushAction(action);
+        //     return actionGroup;
+        // }
+
+        ActionGroup operator()(const PoseHandler &poseHandler,const CmderOrchestrator &orchestrator) const noexcept
         {
-            ActionGroup actionGroup;
-            const auto action = poseHandler.isReverse() ? ActionType::REVERSE_TURNLEFT_ACTION : ActionType::TURNLEFT_ACTION;
-            if (poseHandler.isFast())
-            {
-                const auto action_ = poseHandler.isReverse() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
-                actionGroup.PushAction(action_);
-            }
-            actionGroup.PushAction(action);
-            return actionGroup;
+            return orchestrator.TurnLeft(poseHandler);
         }
     };
 
@@ -160,17 +171,22 @@ namespace adas
         //         poseHandler.TurnRight();
         // }
 
-        ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // {
+        //     ActionGroup actionGroup;
+        //     const auto action = poseHandler.isReverse() ? ActionType::REVERSE_TURNRIGHT_ACTION : ActionType::TURNRIGHT_ACTION;
+        //     if (poseHandler.isFast())
+        //     {
+        //         const auto action_ = poseHandler.isReverse() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
+        //         actionGroup.PushAction(action_);
+        //     }
+        //     actionGroup.PushAction(action);
+        //     return actionGroup;
+        // }
+
+        ActionGroup operator()(const PoseHandler &poseHandler,const CmderOrchestrator &orchestrator) const noexcept
         {
-            ActionGroup actionGroup;
-            const auto action = poseHandler.isReverse() ? ActionType::REVERSE_TURNRIGHT_ACTION : ActionType::TURNRIGHT_ACTION;
-            if (poseHandler.isFast())
-            {
-                const auto action_ = poseHandler.isReverse() ? ActionType::BACKWARD_1_STEP_ACTION : ActionType::FORWARD_1_STEP_ACTION;
-                actionGroup.PushAction(action_);
-            }
-            actionGroup.PushAction(action);
-            return actionGroup;
+            return orchestrator.TurnRight(poseHandler);
         }
     };
 
@@ -188,7 +204,14 @@ namespace adas
         //     poseHandler.Fast();
         // }
 
-        ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // {
+        //     ActionGroup actionGroup;
+        //     actionGroup.PushAction(ActionType::BE_FAST_ACTION);
+        //     return actionGroup;
+        // }
+
+        ActionGroup operator()(PoseHandler &poseHandler, const CmderOrchestrator &orchestrator) const noexcept
         {
             ActionGroup actionGroup;
             actionGroup.PushAction(ActionType::BE_FAST_ACTION);
@@ -204,7 +227,14 @@ namespace adas
         //     poseHandler.Reverse();
         // }
 
-        ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // {
+        //     ActionGroup actionGroup;
+        //     actionGroup.PushAction(ActionType::BE_REVERSE_ACTION);
+        //     return actionGroup;
+        // }
+
+        ActionGroup operator()(PoseHandler &poseHandler, const CmderOrchestrator &orchestrator) const noexcept
         {
             ActionGroup actionGroup;
             actionGroup.PushAction(ActionType::BE_REVERSE_ACTION);
@@ -215,28 +245,33 @@ namespace adas
     class TurnRoundCommand final
     {
     public:
-        ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // ActionGroup operator()(PoseHandler &poseHandler) const noexcept
+        // {
+        //     if (poseHandler.isReverse())
+        //     {
+        //         return ActionGroup(); // 倒车状态下，什么都不做
+        //     }
+        //     else
+        //     {
+        //         if (poseHandler.isFast()) // 快速状态下，四个原子Action
+        //         {
+        //             return ActionGroup({ActionType::FORWARD_1_STEP_ACTION,
+        //                                 ActionType::TURNLEFT_ACTION,
+        //                                 ActionType::FORWARD_1_STEP_ACTION,
+        //                                 ActionType::TURNLEFT_ACTION});
+        //         }
+        //         else // 普通状态下，三个原子Action
+        //         {
+        //             return ActionGroup({ActionType::TURNLEFT_ACTION,
+        //                                 ActionType::FORWARD_1_STEP_ACTION,
+        //                                 ActionType::TURNLEFT_ACTION});
+        //         }
+        //     }
+        // }
+
+        ActionGroup operator()(PoseHandler &poseHandler,const CmderOrchestrator &orchestrator) const noexcept
         {
-            if (poseHandler.isReverse())
-            {
-                return ActionGroup(); // 倒车状态下，什么都不做
-            }
-            else
-            {
-                if (poseHandler.isFast()) // 快速状态下，四个原子Action
-                {
-                    return ActionGroup({ActionType::FORWARD_1_STEP_ACTION,
-                                        ActionType::TURNLEFT_ACTION,
-                                        ActionType::FORWARD_1_STEP_ACTION,
-                                        ActionType::TURNLEFT_ACTION});
-                }
-                else // 普通状态下，三个原子Action
-                {
-                    return ActionGroup({ActionType::TURNLEFT_ACTION,
-                                        ActionType::FORWARD_1_STEP_ACTION,
-                                        ActionType::TURNLEFT_ACTION});
-                }
-            }
+            return orchestrator.TurnRound(poseHandler);
         }
     };
 
