@@ -1,9 +1,5 @@
-<div align="center">
-  <a href="https://github.com/Nuyoahwjl/HUST-CS">
-    <h2 align="center">🚀details🚀</h2>
-  </a>
-</div>
-
+# [🚀details🚀](https://github.com/Nuyoahwjl/HUST-CS)
+# [⬇️git-log⬇️]
 ``` mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base' } }%%
 gitGraph
