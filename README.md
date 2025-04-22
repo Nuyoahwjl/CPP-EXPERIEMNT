@@ -1,7 +1,7 @@
-<div style="text-align: center">
-
-[🚀details🚀](https://github.com/Nuyoahwjl/HUST-CS)
-
+<div align="center">
+  <h2 align="center">🚀details🚀
+     src="https://github.com/Nuyoahwjl/HUST-CS"
+  </h2>
 </div>
 
 ``` mermaid
