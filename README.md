@@ -1,7 +1,6 @@
-
 <div align="center">
-  <a href="https://github.com/Nuyoahwjl/HUST-CS"
-     <h2 align="center">🚀details🚀</h2>
+  <a href="https://github.com/Nuyoahwjl/HUST-CS">
+    <h2 align="center">🚀details🚀</h2>
   </a>
 </div>
 
