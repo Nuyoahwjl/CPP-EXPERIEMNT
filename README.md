@@ -1,4 +1,8 @@
-# [🚀details🚀](https://github.com/Nuyoahwjl/HUST-CS)
+<div style="text-align: center">
+
+[🚀details🚀](https://github.com/Nuyoahwjl/HUST-CS)
+
+</div>
 
 ``` mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base' } }%%
