@@ -1,3 +1,5 @@
+# 🚀details🚀[https://github.com/Nuyoahwjl/HUST-CS]
+
 ``` mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base' } }%%
 gitGraph
